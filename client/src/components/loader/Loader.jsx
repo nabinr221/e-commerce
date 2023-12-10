@@ -1,14 +1,10 @@
+import { LoaderWrapper } from './style';
+
 const Loader = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <LoaderWrapper>
       <h1>Loader......</h1>
-    </div>
+    </LoaderWrapper>
   );
 };
 

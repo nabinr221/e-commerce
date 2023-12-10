@@ -1,9 +1,12 @@
 import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Loader from './components/loader/Loader';
-import Home from './containers/frontend/home/Home';
-// import Overview from './containers/overview/Overview';
-// import Brands from './containers/brands/Brands';
+import Loader from './components/loader/Loader.jsx';
+
+// dynamic import
+const Home = lazy(() => import('./containers/frontend/home/Home'));
+const Products = lazy(() =>
+  import('./containers/backend/products/Products.jsx')
+);
 const DashboardLayout = lazy(() =>
   import('./components/layouts/DashboardLayout')
 );
@@ -13,7 +16,15 @@ const FrontendLayout = lazy(() =>
 const Dashboard = lazy(() =>
   import('./containers/backend/dashboard/Dashboard')
 );
-// const Products = lazy(() => import('./containers/products/Products'));
+const AddProduct = lazy(() =>
+  import('./containers/backend/products/addProduct/AddProduct.jsx')
+);
+const Category = lazy(() =>
+  import('./containers/backend/category/Category.jsx')
+);
+const AddCategory = lazy(() =>
+  import('./containers/backend/category/addCategory/AddCategory.jsx')
+);
 
 function App() {
   const router = createBrowserRouter([
@@ -27,7 +38,19 @@ function App() {
         },
         {
           path: '/dashboard/products',
-          element: <h1>PRODUCT</h1>,
+          element: <Products />,
+        },
+        {
+          path: '/dashboard/add-product',
+          element: <AddProduct />,
+        },
+        {
+          path: '/dashboard/category',
+          element: <Category />,
+        },
+        {
+          path: '/dashboard/add-category',
+          element: <AddCategory />,
         },
         {
           path: '/dashboard/overview',
@@ -41,22 +64,22 @@ function App() {
     },
     {
       path: '/',
-      element: <FrontendLayout    />,
+      element: <FrontendLayout />,
       children: [
         {
           index: true,
           element: <Home />,
         },
         {
-          path: '/dashboard/products',
+          path: '/products',
           element: <h1>PRODUCT</h1>,
         },
         {
-          path: '/dashboard/overview',
+          path: '/overview',
           element: <h1>overview</h1>,
         },
         {
-          path: '/dashboard/brands',
+          path: '/brands',
           element: <h1>brands</h1>,
         },
       ],
@@ -65,7 +88,6 @@ function App() {
 
   return (
     <>
-      {/* <h1>thisi is  </h1> */}
       <Suspense fallback={<Loader />}>
         <RouterProvider router={router} />
       </Suspense>

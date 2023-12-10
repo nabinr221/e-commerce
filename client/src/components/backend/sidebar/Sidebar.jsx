@@ -1,14 +1,27 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {
+  InnerList,
+  InnerListItem,
+  LogoWrapper,
+  NavLinkItem,
+  OuterList,
+  OuterListItem,
+  SidebarContainer,
+  SidebarNav,
+} from './style';
+
 const Sidebar = () => {
   const navItems = [
     {
       category: 'dashboard',
       items: [
-        { name: 'Home', link: '/' },
-        { name: 'Overview', link: '/dashboard/overview' },
-        { name: 'Products', link: '/dashboard/products' },
+        { name: 'Home', link: '/dashboard' },
         { name: 'Brands', link: '/dashboard/brands' },
+        { name: 'Category', link: '/dashboard/category' },
+        { name: 'Products', link: '/dashboard/products' },
+        // { name: 'Products', link: '/dashboard/products' },
         { name: 'Analytics', link: '/dashboard/analytics' },
+        { name: 'Overview', link: '/dashboard/overview' },
         { name: 'Performance', link: '/dashboard/performance' },
       ],
     },
@@ -39,29 +52,29 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="sidebar-container">
-      <div className="logo-wrapper">
-        <h1 className="logo">
-          <Link to={'/'}>E-Commerce</Link>
+    <SidebarContainer>
+      <LogoWrapper>
+        <h1>
+          <Link to={'dashboard/'}>E-Commerce</Link>
         </h1>
-      </div>
-      <div className="sidebar-nav">
-        <ul>
+      </LogoWrapper>
+      <SidebarNav>
+        <OuterList>
           {navItems.map((item, index) => (
-            <li className="sidebar-navItem" key={index}>
+            <OuterListItem key={index}>
               {item.category}
-              <ul>
+              <InnerList>
                 {item.items.map((item, index) => (
-                  <NavLink to={item.link} key={index}>
-                    <li>{item.name}</li>
-                  </NavLink>
+                  <NavLinkItem to={item.link} key={index} end>
+                    <InnerListItem> {item.name}</InnerListItem>
+                  </NavLinkItem>
                 ))}
-              </ul>
-            </li>
+              </InnerList>
+            </OuterListItem>
           ))}
-        </ul>
-      </div>
-    </div>
+        </OuterList>
+      </SidebarNav>
+    </SidebarContainer>
   );
 };
 
